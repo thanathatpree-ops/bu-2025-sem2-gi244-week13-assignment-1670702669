@@ -21,11 +21,50 @@ public class ObstacleObjectPool : MonoBehaviour
 
     public GameObject Acquire(int obstacleType)
     {
-        return null;
+        List<GameObject> pool = GetPool(obstacleType);
+        GameObject prefab = GetPrefab(obstacleType);
+
+        // ค้นหา object ที่ inactive อยู่ใน pool
+        foreach (GameObject obj in pool)
+        {
+            if (!obj.activeInHierarchy)
+            {
+                obj.SetActive(true);
+                return obj;
+            }
+        }
+
+        // ถ้าไม่มี object ว่างใน pool ให้ Instantiate ใหม่แล้วเพิ่มเข้า pool
+        GameObject newObj = Instantiate(prefab);
+        pool.Add(newObj);
+        return newObj;
     }
 
     public void Release(GameObject obstacle, int obstacleType)
     {
+        obstacle.SetActive(false);
+        // object จะถูกเก็บอยู่ใน list ของ type นั้นอยู่แล้ว ไม่ต้อง Add อีก
+    }
 
+    private List<GameObject> GetPool(int obstacleType)
+    {
+        switch (obstacleType)
+        {
+            case 0: return obstacleBarrelPool;
+            case 1: return obstacleBarrierPool;
+            case 2: return obstacleStoneWallPool;
+            default: return obstacleBarrelPool;
+        }
+    }
+
+    private GameObject GetPrefab(int obstacleType)
+    {
+        switch (obstacleType)
+        {
+            case 0: return obstacleBarrelPrefab;
+            case 1: return obstacleBarrierPrefab;
+            case 2: return obstacleStoneWallPrefab;
+            default: return obstacleBarrelPrefab;
+        }
     }
 }
