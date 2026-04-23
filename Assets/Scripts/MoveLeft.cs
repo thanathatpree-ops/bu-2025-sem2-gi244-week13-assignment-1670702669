@@ -4,7 +4,7 @@ public class MoveLeft : MonoBehaviour
 {
     public float speed = 10f;
 
-    // ข้อมูลสำหรับส่งกลับ pool
+    
     [HideInInspector] public int obstacleType = 0;
     [HideInInspector] public ObstacleObjectPool obstaclePool;
 
@@ -31,7 +31,7 @@ public class MoveLeft : MonoBehaviour
         {
             if (obstaclePool != null)
             {
-                // คืน obstacle กลับไปใน pool ของ type ที่ถูกต้อง
+                
                 obstaclePool.Release(gameObject, obstacleType);
             }
             else

@@ -34,7 +34,7 @@ public class ObstacleObjectPool : MonoBehaviour
             }
         }
 
-        // ถ้าไม่มี object ว่างใน pool ให้ Instantiate ใหม่แล้วเพิ่มเข้า pool
+        
         GameObject newObj = Instantiate(prefab);
         pool.Add(newObj);
         return newObj;
@@ -43,7 +43,7 @@ public class ObstacleObjectPool : MonoBehaviour
     public void Release(GameObject obstacle, int obstacleType)
     {
         obstacle.SetActive(false);
-        // object จะถูกเก็บอยู่ใน list ของ type นั้นอยู่แล้ว ไม่ต้อง Add อีก
+        
     }
 
     private List<GameObject> GetPool(int obstacleType)
